@@ -15,15 +15,11 @@ namespace LAB78_OOP
     public partial class Form1 : Form
     {
         Storage<Shape> sto = new Storage<Shape>();
-        Tree tree; //дерево
         public Form1()
         {
           
             InitializeComponent();
-            (pictureBox1 as Control).KeyPress += new KeyPressEventHandler(PressEventHandler);
-            tree = new Tree(sto, treeView1);
-            sto.AddObserver(tree);      //добавление наблюдателя
-         
+            (pictureBox1 as Control).KeyPress += new KeyPressEventHandler(PressEventHandler);    
         }
 
 
@@ -36,23 +32,19 @@ namespace LAB78_OOP
                     
                     for (int i = 0; i < sto.size(); i++, sto.next())
                     {
-                        if (sto.getIterator() != sto.get())
-                        if (sto.isChecked())
-                            sto.getIterator().OffsetXY(0, -2);
+                        if (sto.getIterator().selected)
+                            sto.getIterator().OffsetXY(0, -2, pictureBox1.Width, pictureBox1.Height);
 
                     }
-                    sto.get().OffsetXY(0, -2);
                 }
                 if (e.KeyChar == 115) 
                     {
                   
                     for (int i = 0; i < sto.size(); i++, sto.next()) {
-                        if (sto.getIterator() != sto.get())
-                            if (sto.isChecked())
-                                sto.getIterator().OffsetXY(0, 2);
+                        if (sto.getIterator().selected)
+                            sto.getIterator().OffsetXY(0, 2, pictureBox1.Width, pictureBox1.Height);
 
                         }
-                    sto.get().OffsetXY(0, 2);
                 }
                 if (e.KeyChar == 97)
                 {
@@ -60,23 +52,19 @@ namespace LAB78_OOP
                     for (int i = 0; i < sto.size(); i++, sto.next())
 
                     {
-                        if (sto.getIterator() != sto.get())
-                            if (sto.isChecked())
-                            sto.getIterator().OffsetXY(-2, 0);
+                        if (sto.getIterator().selected)
+                            sto.getIterator().OffsetXY(-2, 0, pictureBox1.Width, pictureBox1.Height);
 
                     }
-                    sto.get().OffsetXY(-2, 0);
                 }
                 if (e.KeyChar == 100)
                 {
                     for (int i = 0; i < sto.size(); i++, sto.next())
                     {
-                        if (sto.getIterator() != sto.get())
-                            if (sto.isChecked())
-                            sto.getIterator().OffsetXY(2, 0);
+                        if (sto.getIterator().selected)
+                            sto.getIterator().OffsetXY(2, 0, pictureBox1.Width, pictureBox1.Height);
 
                     }
-                    sto.get().OffsetXY(2, 0);
                 }
                 if (e.KeyChar == 98)
                 {
@@ -84,74 +72,131 @@ namespace LAB78_OOP
                    
                     for (int i = 0; i < sto.size(); i++, sto.next())
                     {
-                        {
-                            if (sto.getIterator() != sto.get())
-                                if (sto.isChecked())
+                            if (sto.getIterator().selected)
                                 sto.getIterator().Grow(1);
-                        }
                     }
-                    sto.get().Grow(1);
                 }
                 if (e.KeyChar == 118)
                 {
-   
+
                     for (int i = 0; i < sto.size(); i++, sto.next())
-                        {
-                        if (sto.getIterator() != sto.get())
-                            if (sto.isChecked())
-                                sto.getIterator().Grow(-1);
-                        }
-                    sto.get().Grow(-1);
+                    {
+                        if (sto.getIterator().selected)
+                            sto.getIterator().Grow(-1);
+                    }
+                }
+                if (e.KeyChar == 32)
+                {
+                   // if (sto.size() == 1 && (sto.getIterator().selected)) { sto.del(); }
+                    for (int i = 0; i < sto.size(); i++, sto.next())
+                    {
+                        if (sto.getIterator().selected)
+                            sto.delIterator();
+                            
+                    }
+                    for (int i = 0; i < sto.size(); i++, sto.next())
+                    {
+                        //if (sto.size() == 1 && sto.isChecked()) { sto.del(); break; }
+                        if (sto.getIterator().selected)
+                            sto.delIterator();
+
+                    }
+                    //sto.setCurPTR();
                 }
                 if (e.KeyChar == 110)
                 {
-                    if (sto.get() is Polygon) ((Polygon)sto.get()).growN(1);
-                    if (sto.get() is Star) ((Star)sto.get()).growN(1);
+                    for (int i = 0; i < sto.size(); i++, sto.next())
+                    {
+                        if (sto.getIterator().selected)
+                        {
+                            if (sto.getIterator() is Polygon) ((Polygon)sto.getIterator()).growN(1);
+                            if (sto.getIterator() is Star) ((Star)sto.getIterator()).growN(1);
+                        }
+                    }
                 }
                 if (e.KeyChar == 109)
                 {
-                    if (sto.get() is Polygon) ((Polygon)sto.get()).growN(-1);
-                    if (sto.get() is Star) ((Star)sto.get()).growN(-1);
+                    for (int i = 0; i < sto.size(); i++, sto.next())
+                    {
+                        if (sto.getIterator().selected)
+                        {
+                            if (sto.getIterator() is Polygon) ((Polygon)sto.getIterator()).growN(-1);
+                            if (sto.getIterator() is Star) ((Star)sto.getIterator()).growN(-1);
+                        }
+                    }
                 }
                 if (e.KeyChar == 46)
                 {
-                    sto.get().Rotate(2);
+                    for (int i = 0; i < sto.size(); i++, sto.next())
+                    {
+                        if (sto.getIterator().selected)
+                        {
+                            sto.getIterator().Rotate(2); 
+                        }
+                    }
                 }
                 if (e.KeyChar == 44)
                 {
-                    sto.get().Rotate(-2);
+                    for (int i = 0; i < sto.size(); i++, sto.next())
+                    {
+                        if (sto.getIterator().selected)
+                        {
+                            sto.getIterator().Rotate(-2);
+                        }
+                    }
                 }
-                if (e.KeyChar == 122) sto.prevCur();
-                if (e.KeyChar == 120) sto.nextCur();
-                if (e.KeyChar == 99) sto.del();
                 if (e.KeyChar == 107)
                 {
 
-                    if (colorDialog1.ShowDialog() == DialogResult.OK) sto.get().SetColor(colorDialog1.Color);
+                    if (colorDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        for (int i = 0; i < sto.size(); i++, sto.next())
+                        {
+                            {
+                                    if (sto.getIterator().selected)
+                                    {
+                                        sto.getIterator().SetColor(colorDialog1.Color);
+                                    }
+                            }
+                        }
+                       
+                    }
+                       
                 }
               
                     Random rnd = new Random();
                     int obj = rnd.Next(1, 3);
-                    if (e.KeyChar==49)
+               if (e.KeyChar==49)
+               {
+                    for (int j = 0; j < sto.size(); j++, sto.next())
                     {
-                        int rad = rnd.Next(10, 100);
-                        sto.add(new Circle(rnd.Next(4, pictureBox1.Width - 50), rnd.Next(4, pictureBox1.Height - 50), rad, Color.FromArgb(rnd.Next(0, 256), rnd.Next(0, 256), rnd.Next(0, 256)), pictureBox1.Width - 50, pictureBox1.Height - 50));
+                        if (sto.getIterator().selected) { sto.getIterator().selected = false; }
                     }
+                    int rad = rnd.Next(10, 100);
+                        sto.add(new Circle(rnd.Next(4, pictureBox1.Width - 50), rnd.Next(4, pictureBox1.Height - 50), rad, Color.FromArgb(rnd.Next(0, 256), rnd.Next(0, 256), rnd.Next(0, 256)), pictureBox1.Width - 50, pictureBox1.Height - 50));
+               }
                 if (e.KeyChar == 51)
                 {
-                        int rad = rnd.Next(10, 100);
+                    for (int j = 0; j < sto.size(); j++, sto.next())
+                    {
+                        if (sto.getIterator().selected) { sto.getIterator().selected = false; }
+                    }
+                    int rad = rnd.Next(10, 100);
                         sto.add(new Polygon(rnd.Next(4, pictureBox1.Width - 50), rnd.Next(4, pictureBox1.Height - 50), rad, rnd.Next(3, 9), Color.FromArgb(rnd.Next(0, 256), rnd.Next(0, 256), rnd.Next(0, 256)), pictureBox1.Width-50, pictureBox1.Height - 50));
                         ((Polygon)sto.get()).Rotate(rnd.Next(0, 180));
-                    }
-                  if(e.KeyChar==50)
+                }
+               if(e.KeyChar==50)
+               {
+                    for (int j = 0; j < sto.size(); j++, sto.next())
                     {
-                        int rad = rnd.Next(10, 100);
+                        if (sto.getIterator().selected) { sto.getIterator().selected = false; }
+                    }
+                    int rad = rnd.Next(10, 100);
                         sto.add(new Star(rnd.Next(4, pictureBox1.Width - 50), rnd.Next(4, pictureBox1.Height - 50), rad, rnd.Next(5, 9), Color.FromArgb(rnd.Next(0, 256), rnd.Next(0, 256), rnd.Next(0, 256)), pictureBox1.Width - 50, pictureBox1.Height - 50));
                         ((Star)sto.get()).Rotate(rnd.Next(0, 180));
-                    }
+               }
                 
             }
-            tree.Print();
             pictureBox1.Invalidate();
         }
 
@@ -180,10 +225,10 @@ namespace LAB78_OOP
                 sto.toFirst();
                 int cnt = 0;
                 for (int i = 0; i < sto.size(); i++, sto.next()) 
-                    if (sto.isChecked() == true) cnt++;
+                    if (sto.getIterator().selected == true) cnt++;
                 while (cnt != 0)
                 {
-                    if (sto.isChecked() == true)
+                    if (sto.getIterator().selected == true)
                     {
                         group.Add(sto.getIterator());
                         sto.delIterator();
@@ -215,19 +260,27 @@ namespace LAB78_OOP
                     if (sto.getIterator().Find(e.X, e.Y) == true && e.Button == MouseButtons.Left)
                     {
                         isFinded = true;
-                        sto.setCurPTR();
+                        for (int j = 0; j < sto.size(); j++, sto.next())
+                        {
+                            if (sto.getIterator().selected) { sto.getIterator().selected = false; }
+                        }
+                        sto.getIterator().selected = true;
                         break;
                     }
                     if (sto.getIterator().Find(e.X, e.Y) == true && e.Button == MouseButtons.Right)
                     {
                         isFinded = true;
-                        sto.check();
+                        sto.getIterator().selected = true;
                         break;
                     }
                 }
             }
             if (isFinded == false)
             {
+                for (int j = 0; j < sto.size(); j++, sto.next())
+                {
+                    if (sto.getIterator().selected) { sto.getIterator().selected = false; }
+                }
                 if (radioButton3.Checked == true)
                 {
                     Random rnd = new Random();
@@ -250,15 +303,8 @@ namespace LAB78_OOP
                     sto.add(new Star(e.X, e.Y, rad, rnd.Next(5, 9), Color.FromArgb(rnd.Next(0, 256), rnd.Next(0, 256), rnd.Next(0, 256)), pictureBox1.Width, pictureBox1.Height));
                     ((Star)sto.get()).Rotate(rnd.Next(0, 180));
                 }
-                if (checkBox1.Checked)
-                {
-                    sto.get().sticky = true;
-                    sto.get().AddStorage(sto);
-                }
+
             }
-            if (isFinded == true && sto.get().sticky == true)
-                checkBox1.Checked = true;
-            else checkBox1.Checked = false;
             pictureBox1.Invalidate();
         }
 
@@ -270,9 +316,9 @@ namespace LAB78_OOP
                 for (int i = 0; i < sto.size(); i++, sto.next())
                 {
                     sto.getIterator().DrawObj(e.Graphics);
-                    if (sto.isChecked() == true) sto.getIterator().DrawRectangle(e.Graphics, new Pen(Color.Gray, 2));
+                    if (sto.getIterator().selected == true) sto.getIterator().DrawRectangle(e.Graphics, new Pen(Color.Gray, 2));
                 }
-                sto.get().DrawRectangle(e.Graphics, new Pen(Color.Red, 1));
+               // sto.get().DrawRectangle(e.Graphics, new Pen(Color.Red, 1));
             }
         }
 
@@ -308,51 +354,27 @@ namespace LAB78_OOP
                 f.Close();
             }
             pictureBox1.Invalidate();
-            tree.Print();
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-            if ((e.Action == TreeViewAction.ByKeyboard || e.Action == TreeViewAction.ByMouse) && e.Node.Text != "Фигуры")
-            {
-                TreeNode tmp = e.Node;
-                while (tmp.Parent.Text != "Фигуры")
-                    tmp = tmp.Parent;
-                treeView1.SelectedNode = tmp;
-                sto.toFirst();
-                sto.setCurPTR();
-                for (int i = 0; i < tmp.Index; i++)
-                    sto.nextCur();
-                pictureBox1.Invalidate();
-            }
-        }
+       
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             pictureBox1.Focus();
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (sto.size() != 0)
-            {
-                sto.get().sticky = checkBox1.Checked;
-                if (checkBox1.Checked == true)
-                    sto.get().AddStorage(sto); //подписывается хранилище
-            }
-        }
+        
     }
 }
-public abstract class Shape : ObjObserved
+public abstract class Shape  
 {
-    public string name; 
+    public string name;
+    public bool selected = false;
     protected Rectangle rect;
     protected int x, y, width, height;
-    public bool sticky = false; //липкость 
     abstract public void Resize(); 
     abstract public void SetXY(int _x, int _y); 
-    abstract public void OffsetXY(int _x, int _y);
+    abstract public void OffsetXY(int _x, int _y, int wight1, int height1);
     abstract public void SetColor(Color c);
     abstract public void Grow(int gr);
     abstract public void Rotate(int gr);
@@ -415,14 +437,15 @@ public class SGroup : Shape
         width = Width;
         height = Height;
         sto = new Storage<Shape>();
+        selected = true;
         name = "Группа";
     }
 
     public void Add(Shape s)
     {
         sto.add(s);
-        sto.get().sticky = false;
-        if (sto.size() == 1) rect = new Rectangle(s.GetRectangle().X, s.GetRectangle().Y, s.GetRectangle().Width, s.GetRectangle().Height); else
+        if (sto.size() == 1) rect = new Rectangle(s.GetRectangle().X, s.GetRectangle().Y, s.GetRectangle().Width, s.GetRectangle().Height); 
+        else
         {
             if (s.GetRectangle().Left < rect.Left)
             {
@@ -520,33 +543,22 @@ public class SGroup : Shape
         }
     }
 
-    public override void OffsetXY(int _x, int _y)
+    public override void OffsetXY(int _x, int _y, int wight1, int height1)
     {
-        if (storage != null && storage.size() != 0 && sticky == true)
-        {
-            storage.toFirst();
-            for (int i = 0; i < storage.size(); i++, storage.next())
-            {
-                if (Find(storage.getIterator()) == true && storage.getIterator() != this)
-                {
-                    if (storage.getIterator().sticky == false)
-                        storage.getIterator().OffsetXY(_x, _y);
-                }
-            }
-        }
+        
         if (sto.size() != 0)
         {
-            if (rect.X + _x > 0 && _x + rect.Right < width)
+            if (rect.X + _x > 0 && _x + rect.Right < wight1)
             {
                 rect.X += _x;
                 sto.toFirst();
-                for (int i = 0; i < sto.size(); i++, sto.next()) sto.getIterator().OffsetXY(_x, 0);
+                for (int i = 0; i < sto.size(); i++, sto.next()) sto.getIterator().OffsetXY(_x, 0, wight1, height1);
             }
-            if (rect.Y + _y > 0 && _y + rect.Bottom < height)
+            if (rect.Y + _y > 0 && _y + rect.Bottom < height1)
             {
                 rect.Y += _y;
                 sto.toFirst();
-                for (int i = 0; i < sto.size(); i++, sto.next()) sto.getIterator().OffsetXY(0, _y);
+                for (int i = 0; i < sto.size(); i++, sto.next()) sto.getIterator().OffsetXY(0, _y, wight1, height1);
             }
         }
     }
@@ -656,6 +668,7 @@ public class Circle: Shape
         if (y + r > height) r = height - y;
         radius = r;
         rect = new Rectangle(x - radius, y - radius, 2 * radius, 2 * radius);
+        selected = true;
     }
 
     public override void DrawObj(Graphics e)
@@ -669,22 +682,10 @@ public class Circle: Shape
         e.DrawRectangle(pen, rect);
     }
 
-    public override void OffsetXY(int _x, int _y)
+    public override void OffsetXY(int _x, int _y, int wight1, int height1)
     {
-        if (storage != null && storage.size() != 0 && sticky == true)
-        {
-            storage.toFirst();
-            for (int i = 0; i < storage.size(); i++, storage.next())
-            {
-                if (Find(storage.getIterator()) == true && storage.getIterator() != this)
-                {
-                    if (storage.getIterator().sticky == false)
-                        storage.getIterator().OffsetXY(_x, _y);
-                }
-            }
-        }
-        if (x + _x > radius && x + _x + radius < width) x += _x;
-        if (y + _y > radius && y + _y + radius < height) y += _y;
+        if (x + _x > radius && x + _x + radius < wight1) x += _x;
+        if (y + _y > radius && y + _y + radius < height1) y += _y;
         Resize();
     }
 
@@ -783,6 +784,7 @@ public class Polygon : Circle
         if (x + r > width) r = width - x;
         if (r > y) r = y;
         if (y + r > height) r = height - y;
+        selected = true;
         Resize();
         name = "Многоугольник";
     }
@@ -833,22 +835,11 @@ public class Polygon : Circle
         Resize();
     }
 
-    public override void OffsetXY(int _x, int _y)
+    public override void OffsetXY(int _x, int _y, int wight1, int height1)
     {
-        if (storage != null && storage.size() != 0 && sticky == true)
-        {
-            storage.toFirst();
-            for (int i = 0; i < storage.size(); i++, storage.next())
-            {
-                if (Find(storage.getIterator()) == true && storage.getIterator() != this)
-                {
-                    if (storage.getIterator().sticky == false)
-                        storage.getIterator().OffsetXY(_x, _y);
-                }
-            }
-        }
-        if (x + _x > radius && x + _x + radius < width) x += _x;
-        if (y + _y > radius && y + _y + radius < height) y += _y;
+        
+        if (x + _x > radius && x + _x + radius < wight1) x += _x;
+        if (y + _y > radius && y + _y + radius < height1) y += _y;
         Resize();
     }
 
@@ -916,6 +907,7 @@ public class Star: Circle
         if (x + r > width) r = width - x;
         if (r > y) r = y;
         if (y + r > height) r = height - y;
+        selected = true;
         Resize();
         name = "Звезда";
     }
@@ -972,22 +964,11 @@ public class Star: Circle
         Resize();
     }
 
-    public override void OffsetXY(int _x, int _y)
+    public override void OffsetXY(int _x, int _y, int wight1, int height1)
     {
-        if (storage != null && storage.size() != 0 && sticky == true)
-        {
-            storage.toFirst();
-            for (int i = 0; i < storage.size(); i++, storage.next())
-            {
-                if (Find(storage.getIterator()) == true && storage.getIterator() != this)
-                {
-                    if (storage.getIterator().sticky == false)
-                        storage.getIterator().OffsetXY(_x, _y);
-                }
-            }
-        }
-        if (x + _x > radius && x + _x + radius < width) x += _x;
-        if (y + _y > radius && y + _y + radius < height) y += _y;
+        
+        if (x + _x > radius && x + _x + radius < wight1) x += _x;
+        if (y + _y > radius && y + _y + radius < height1) y += _y;
         Resize();
     }
 
@@ -1033,109 +1014,24 @@ public class Star: Circle
     }
 }
 
-class DPanel : Panel
+/*class DPanel : Panel
 {
     public DPanel()
     {
         this.DoubleBuffered = true;
         this.ResizeRedraw = true;
     }
-}
+}*/
 
-public class Observer //интерфейс наблюдателя
-{
-    public virtual void SubjectChanged() { return; }
-}
 
-class Tree : Observer
-{
-    private Storage<Shape> sto;
-    private TreeView tree;
-    public Tree(Storage<Shape> sto, TreeView tree)
-    {
-        this.sto = sto;
-        this.tree = tree;
-    }
-
-    public void Print()
-    {
-        tree.Nodes.Clear();
-        if (sto.size() != 0)
-        {
-            int SelectedIndex = 0;
-            TreeNode start = new TreeNode("Фигуры");
-            sto.toFirst();
-            for (int i = 0; i < sto.size(); i++, sto.next())
-            {
-                if (sto.getCurPTR() == sto.getIteratorPTR())
-                    SelectedIndex = i;
-                PrintNode(start, sto.getIterator());
-            }
-            tree.Nodes.Add(start);
-            tree.SelectedNode = tree.Nodes[0].Nodes[SelectedIndex];
-        }
-        tree.ExpandAll();
-    }
-
-    private void PrintNode(TreeNode node, Shape shape)
-    {
-        if (shape is SGroup)
-        {
-            TreeNode tn = new TreeNode(shape.GetInfo());
-            if (((SGroup)shape).sto.size() != 0)
-            {
-                ((SGroup)shape).sto.toFirst();
-                for (int i = 0; i < ((SGroup)shape).sto.size(); i++, ((SGroup)shape).sto.next())
-                    PrintNode(tn, ((SGroup)shape).sto.getIterator());
-            }
-            node.Nodes.Add(tn);
-        } 
-        else
-        {
-            node.Nodes.Add(shape.GetInfo());
-        }
-    }
-    
-    public override void SubjectChanged()
-    {
-        Print();
-    }
-}
-
-public class ObjObserved    
-{
-    public Storage<Shape> storage;
-    public void AddStorage(Storage<Shape> sto)
-    {
-        storage = sto;
-    }
-}
-
-public class Observed //НАБЛЮДАЕМЫЙ 
-{
-    private List<Observer> observers;
-    public Observed()   //методы управления подпиской
-    {
-        observers = new List<Observer>();
-    }
-    public void AddObserver(Observer o)
-    {
-        observers.Add(o);
-    }
-    public void Notify()    //каждому подписчику посылает уведомления, что нужно обновиться
-    {
-        foreach (Observer observer in observers) 
-            observer.SubjectChanged();
-    }
-}
-
-public class Storage<T> : Observed
+public class Storage<T> 
 {
     public class list
     {
         public T data { get; set; }
         public list right { get; set; }
         public list left { get; set; }
+
         public bool isChecked = false;
     };
     private list first;
@@ -1169,7 +1065,6 @@ public class Storage<T> : Observed
         current = tmp;
         first.left = last;
         rate++;
-        Notify(); ///обновляет
     }
     public void addBefore(T obj)
     {
@@ -1236,12 +1131,12 @@ public class Storage<T> : Observed
     public void nextCur()
     {
         current = current.right;
-        Notify();
+
     }
     public void prevCur()
     {
         current = current.left;
-        Notify();
+
     }
     public void del()
     {
@@ -1268,7 +1163,6 @@ public class Storage<T> : Observed
             }
         }
         rate--;
-        Notify();
     }
     public void delIterator()
     {
@@ -1294,7 +1188,31 @@ public class Storage<T> : Observed
             }
         }
         rate--;
-        Notify();
+    }
+    public void delIterator1()
+    {
+        if (rate == 1)
+        {
+            first = null;
+            last = null;
+            iterator = null;
+        }
+        else
+        {
+            (iterator.left).right = iterator.right;
+            (iterator.right).left = iterator.left;
+            if (iterator == last)
+            {
+                iterator = iterator.left;
+                last = iterator;
+            }
+            else
+            {
+                if (iterator == first) first = iterator.right;
+                iterator = iterator.left;
+            }
+        }
+        rate--;
     }
     public int size()
     {
@@ -1311,7 +1229,6 @@ public class Storage<T> : Observed
     public void setCurPTR()
     {
         current = iterator;
-        Notify();
     }
     public bool isChecked()
     {
@@ -1320,7 +1237,6 @@ public class Storage<T> : Observed
     public void check()
     {
         iterator.isChecked = !iterator.isChecked;
-        Notify();
     }
     public T getIterator()
     {
